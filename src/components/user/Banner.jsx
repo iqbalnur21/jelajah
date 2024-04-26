@@ -1,13 +1,13 @@
 "use client"
-import useGetData from "@/services/useGetData";
+import getMethod from "@/utils/getMethod";
 import React, { useEffect, useState } from "react";
 
 export default function Banner() {
   const [banners, setBanners] = useState([]);
-  const { getData } = useGetData();
+  const { GET } = getMethod();
 
   useEffect(() => {
-    getData("banners").then((res) => setBanners(res.data.data));
+    GET("banners").then((res) => setBanners(res.data.data));
   }, []);
 
   return (

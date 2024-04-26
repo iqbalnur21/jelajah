@@ -4,19 +4,19 @@ import getMethod from "@/utils/getMethod";
 import useUpdate from "@/services/useUpdate";
 import useUpload from "@/services/useUpload";
 
-export default function DetailBanner({ params }) {
+export default function DetailCategory({ params }) {
   const { GET } = getMethod();
   const { update } = useUpdate();
   const { upload } = useUpload();
   const [url, setUrl] = useState("");
-  const [banner, setBanner] = useState({});
+  const [category, setCategory] = useState({});
   const [tempImage, setTempImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [successStatus, setSuccessStatus] = useState(null);
 
   useEffect(() => {
-    GET(`banner/${params.id}`).then((res) => setBanner(res.data.data));
+    GET(`category/${params.id}`).then((res) => setCategory(res.data.data));
   }, []);
   const handleFileChange = async (e) => {
     setIsLoading(true);
@@ -46,21 +46,21 @@ export default function DetailBanner({ params }) {
       setSuccessStatus(false);
       return false;
     }
-    console.log(banner.imageUrl);
-    const bannerData = {
+    console.log(category.imageUrl);
+    const categoryData = {
       name: e.target.name.value,
-      imageUrl: url ? url : banner.imageUrl,
+      imageUrl: url ? url : category.imageUrl,
     };
-    console.log("submit: ", bannerData);
+    console.log("submit: ", categoryData);
     try {
-      const res = await update(`update-banner/${params.id}`, bannerData);
+      const res = await update(`update-category/${params.id}`, categoryData);
       if (res.status === 200) {
         setIsLoading(false);
-        setMessage("Berhasil Mengubah Banner");
+        setMessage("Berhasil Mengubah Category");
         setSuccessStatus(true);
       }
     } catch (error) {
-      setMessage("Gagal Mengubah Banner");
+      setMessage("Gagal Mengubah Category");
       setSuccessStatus(false);
       setIsLoading(false);
       console.log(error);
@@ -71,7 +71,7 @@ export default function DetailBanner({ params }) {
       <div className="main-content">
         <section className="section">
           <div className="section-header">
-            <h1>Ubah Banner</h1>
+            <h1>Ubah Category</h1>
           </div>
         </section>
         <form
@@ -110,7 +110,7 @@ export default function DetailBanner({ params }) {
           <div className="row">
             <div className="align-self-center col-md-3">
               <img
-                src={tempImage ? tempImage : banner.imageUrl}
+                src={tempImage ? tempImage : category.imageUrl}
                 className="mb-4 rounded"
                 style={{ maxWidth: "320px" }}
               ></img>
@@ -121,7 +121,7 @@ export default function DetailBanner({ params }) {
                 <input
                   type="text"
                   className="form-control"
-                  defaultValue={banner.name}
+                  defaultValue={category.name}
                   name="name"
                 ></input>
               </div>
@@ -138,7 +138,7 @@ export default function DetailBanner({ params }) {
           </div>
           <div className="row col-md-6">
             <a
-              href="/dashboard/banner"
+              href="/dashboard/category"
               className="btn btn-danger mt-4 mr-2 float-center"
             >
               Kembali

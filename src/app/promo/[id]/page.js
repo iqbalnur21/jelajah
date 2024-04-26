@@ -1,5 +1,5 @@
 "use client";
-import useGetData from "@/services/useGetData";
+import getMethod from "@/utils/getMethod";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/user/Navbar";
@@ -8,7 +8,7 @@ import "@/assets/user/css/custom.css";
 import "@/assets/user/css/theme.css";
 
 export default function DetailPromoPage({ params }) {
-  const { getData } = useGetData();
+  const { GET } = getMethod();
   const [url, setUrl] = useState("");
   const [promo, setPromo] = useState({});
   const calDisc = (
@@ -20,7 +20,7 @@ export default function DetailPromoPage({ params }) {
     import("bootstrap/dist/js/bootstrap.min.js");
     import("@/assets/user/fontawesome/all.min.js");
     import("@/assets/user/js/theme.js");
-    getData(`promo/${params.id}`).then((res) => setPromo(res.data.data));
+    GET(`promo/${params.id}`).then((res) => setPromo(res.data.data));
   }, []);
   async function checkImageUrls(promo) {
     try {

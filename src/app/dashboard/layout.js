@@ -2,6 +2,9 @@
 import { useEffect, useState } from "react";
 import "@/assets/admin/node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "@/assets/admin/node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+import "@/assets/admin/node_modules/datatables/media/css/jquery.dataTables.min.css";
+// import "@/assets/admin/node_modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css";
+// import "@/assets/admin/node_modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css";
 import "@/assets/admin/assets/css/style.css";
 import "@/assets/admin/assets/css/components.css";
 import Link from "next/link";
@@ -27,12 +30,15 @@ export default function DashboardLayout({ children }) {
     import("@/assets/admin/assets/js/page/modules-sweetalert.js");
     import("@/assets/admin/assets/js/scripts.js");
     import("@/assets/admin/assets/js/custom.js");
+    import("@/assets/admin/node_modules/datatables/media/js/jquery.dataTables.min.js");
+    // import("@/assets/admin/node_modules/datatables/Select-1.2.4/js/dataTables.select.min.js");
   }, []);
 
   function handleLogout() {
    
     // localStorage.removeItem("token");
   }
+  // console.log(user);
   return (
     <div className="main-wrapper">
       <div className="navbar-bg"></div>
@@ -94,34 +100,34 @@ export default function DashboardLayout({ children }) {
 
             <li className="menu-header">Menu</li>
             <li>
-              <Link className="nav-link" href={`/dashboard/user`}>
-                <i className="fas fa-users"></i> <span>Data User</span>
-              </Link>
-            </li>
-            <li>
-              <Link className="nav-link" href={`/dashboard/banner`}>
+              <a className="nav-link" href={`/dashboard/banner`}>
                 <i className="fas fa-window-restore"></i> <span>Data Banner</span>
-              </Link>
+              </a>
             </li>
             <li>
-              <Link className="nav-link" href={`/dashboard/promo`}>
+              <a className="nav-link" href={`/dashboard/user`}>
+                <i className="fas fa-users"></i> <span>Data User</span>
+              </a>
+            </li>
+            <li>
+              <a className="nav-link" href={`/dashboard/promo`}>
                 <i className="fas fa-tag"></i> <span>Data Promo</span>
-              </Link>
+              </a>
             </li>
             <li>
-              <Link className="nav-link" href={`/dashboard/category`}>
+              <a className="nav-link" href={`/dashboard/category`}>
                 <i className="fas fa-list"></i> <span>Data Kategori</span>
-              </Link>
+              </a>
             </li>
             <li>
-              <Link className="nav-link" href={`/dashboard/activity`}>
+              <a className="nav-link" href={`/dashboard/activity`}>
                 <i className="fas fa-hiking"></i> <span>Data Aktivitas</span>
-              </Link>
+              </a>
             </li>
             <li>
-              <Link className="nav-link" href={`/dashboard/profile`}>
+              <a className="nav-link" href={`/dashboard/profile`}>
                 <i className="fas fa-user"></i> <span>Profile</span>
-              </Link>
+              </a>
             </li>
             <li>
               <a

@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import useGetData from "@/services/useGetData";
+import getMethod from "@/utils/getMethod";
 import useCreate from "@/services/useCreate";
 import useUpload from "@/services/useUpload";
 
 export default function CreateBanner() {
-  const { getData } = useGetData();
+  const { GET } = getMethod();
   const { create } = useCreate();
   const { upload } = useUpload();
   const [url, setUrl] = useState("");
@@ -31,9 +31,9 @@ export default function CreateBanner() {
       console.log("url: ", res.data.url);
       return res.data.url;
     } catch (error) {
-        setIsLoading(false);
-        setMessage("Gagal Upload Gambar");
-        setSuccessStatus(false);
+      setIsLoading(false);
+      setMessage("Gagal Upload Gambar");
+      setSuccessStatus(false);
       console.log(error);
     }
   };
@@ -41,7 +41,7 @@ export default function CreateBanner() {
     e.preventDefault();
     setIsLoading(true);
     if (e.target.name.value === "" || url === "") {
-        setIsLoading(false);
+      setIsLoading(false);
       setMessage("Isi Semua Data");
       setSuccessStatus(false);
       return false;
@@ -81,7 +81,6 @@ export default function CreateBanner() {
           className="card card-body"
           onSubmit={(e) => handleSubmit(e)}
         >
-          <img src={tempImage} className="mb-4 rounded"></img>
           {message ? (
             <div
               className={
@@ -111,20 +110,30 @@ export default function CreateBanner() {
             </div>
           ) : null}
           <div className="row">
-            <div className="col-md-6 form-group">
-              <label htmlFor="">Nama:</label>
-              <input type="text" className="form-control" name="name"></input>
+            <div className="align-self-center col-md-3">
+              <img
+                src={tempImage}
+                className="mb-4 rounded"
+                style={{ maxWidth: "320px" }}
+              ></img>
             </div>
-            <div className="col-md-6 form-group">
-              <label htmlFor="">Gambar:</label>
-              <input
-                type="file"
-                className="form-control"
-                name="imageUrl"
-                onChange={handleFileChange}
-              ></input>
+            <div className="align-self-center col-md-9">
+              <div className="form-group">
+                <label htmlFor="">Nama:</label>
+                <input type="text" className="form-control" name="name"></input>
+              </div>
+              <div className="form-group">
+                <label htmlFor="">Gambar:</label>
+                <input
+                  type="file"
+                  className="form-control"
+                  name="imageUrl"
+                  onChange={handleFileChange}
+                ></input>
+              </div>
             </div>
           </div>
+
           <div className="row col-md-6">
             <a
               href="/dashboard/banner"

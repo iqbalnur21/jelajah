@@ -1,5 +1,5 @@
 "use client";
-import useGetData from "@/services/useGetData";
+import getMethod from "@/utils/getMethod";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/user/Navbar";
@@ -11,16 +11,16 @@ import CardActivities from "@/components/user/CardActivities";
 export default function DetailActivityPage({ params }) {
   const [activities, setActivities] = useState([]);
   const [category, setCategory] = useState([]);
-  const { getData } = useGetData();
+  const { GET } = getMethod();
 
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap.min.js");
     import("@/assets/user/fontawesome/all.min.js");
     import("@/assets/user/js/theme.js");
-    getData(`activities-by-category/${params.id}`).then((res) =>
+    GET(`activities-by-category/${params.id}`).then((res) =>
       setActivities(res.data.data)
     );
-    getData(`category/${params.id}`).then((res) => setCategory(res.data.data));
+    GET(`category/${params.id}`).then((res) => setCategory(res.data.data));
   }, []);
   const numSlides = Math.ceil(activities.length / 3);
   const slideNumbers = Array.from({ length: numSlides }, (_, index) => index);

@@ -1,14 +1,15 @@
 "use client";
-import useGetData from "@/services/useGetData";
+import getMethod from "@/utils/getMethod";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/user/Navbar";
 import axios from "axios";
 import "@/assets/user/css/custom.css";
 import "@/assets/user/css/theme.css";
+import { formatPrice } from "@/utils";
 
 export default function DetailActivityPage({ params }) {
-  const { getData } = useGetData();
+  const { GET } = getMethod();
   const [url, setUrl] = useState("");
   const [activity, setActivity] = useState({});
   const calDisc = (
@@ -20,7 +21,7 @@ export default function DetailActivityPage({ params }) {
     import("bootstrap/dist/js/bootstrap.min.js");
     import("@/assets/user/fontawesome/all.min.js");
     import("@/assets/user/js/theme.js");
-    getData(`activity/${params.id}`).then((res) => setActivity(res.data.data));
+    GET(`activity/${params.id}`).then((res) => setActivity(res.data.data));
   }, []);
   async function checkImageUrls(activity) {
     if (activity.imageUrls?.length > 1) {
@@ -42,16 +43,6 @@ export default function DetailActivityPage({ params }) {
 
   checkImageUrls(activity);
 
-  function formatDiscountPrice(price) {
-    return price
-      ? price
-          .toLocaleString("id-ID", {
-            style: "currency",
-            currency: "IDR",
-          })
-          .slice(0, -3)
-      : 0;
-  }
   if (!url) {
     setUrl(
       "https://travel-journal-api-bootcamp.do.dibimbing.id/images/1714091131455-default-image.jpg"
@@ -91,7 +82,7 @@ export default function DetailActivityPage({ params }) {
                     <div className="d-grid" style={{ justifyItems: "start" }}>
                       <div className="d-flex align-items-center">
                         <p className="text-decoration-line-through text-900 mb-0">
-                          {formatDiscountPrice(activity.price)}
+                          {formatPrice(activity.price)}
                         </p>
                         <span className="badge bg-soft-secondary p-2 mx-2">
                           <i className="fas fa-tag text-secondary fs--2 me-0"></i>
@@ -102,7 +93,7 @@ export default function DetailActivityPage({ params }) {
                       </div>
                       <h1 className="mb-3 text-primary fw-bolder fs-3">
                         <span>
-                          {formatDiscountPrice(activity.price_discount)}
+                          {formatPrice(activity.price_discount)}
                         </span>
                       </h1>
                     </div>

@@ -1,16 +1,13 @@
 import axios from "axios";
-
-export default function POST() {
-  const postMethod = async (url, body) => {
+export default function getMethod() {
+  const GET = async (url) => {
     try {
-      const res = await axios.post(
+      const res = await axios.get(
         `https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/${url}`,
-        body,
         {
           headers: {
             apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
-            Authorization: `Bearer ${localStorage.getItem("token")} `,
-            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -19,5 +16,5 @@ export default function POST() {
       console.log(error);
     }
   };
-  return { postMethod };
+  return { GET };
 }

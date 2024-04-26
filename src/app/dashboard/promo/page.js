@@ -2,23 +2,23 @@
 import { useEffect, useState } from "react";
 import getMethod from "@/utils/getMethod";
 import Link from "next/link";
-import { formatDate } from "@/utils";
+import {formatPrice } from "@/utils";
 import useDelete from "@/services/useDelete";
 
-export default function DataBanner() {
-  const [banners, setBanners] = useState([]);
+export default function DataPromo() {
+  const [promos, setPromos] = useState([]);
   const { GET } = getMethod();
   const { deleteData } = useDelete();
 
   useEffect(() => {
-    GET("banners").then((res) => setBanners(res.data.data));
+    GET("promos").then((res) => setPromos(res.data.data));
   }, []);
 
   const handleDelete = (id) => {
-    const confirmed = confirm("Yakin Ingin Hapus Banner Ini ?");
+    const confirmed = confirm("Yakin Ingin Hapus Promo Ini ?");
     if (confirmed) {
       try {
-        deleteData(`delete-banner/${id}`).then((res) => {
+        deleteData(`delete-promo/${id}`).then((res) => {
           if (res.status === 200) {
             window.location.reload();
           }
@@ -28,13 +28,12 @@ export default function DataBanner() {
       }
     }
   };
-
   return (
     <>
       <div className="main-content">
         <section className="section">
           <div className="section-header">
-            <h1>Data Banner</h1>
+            <h1>Data Promo</h1>
           </div>
         </section>
         <div className="card card-body">
@@ -46,10 +45,10 @@ export default function DataBanner() {
               <div className="row">
                 <div className="col-sm-12">
                   <Link
-                    href={"/dashboard/banner/create"}
+                    href={"/dashboard/promo/create"}
                     className="btn btn-primary mb-3 float-left mr-3"
                   >
-                    Tambah Banner
+                    Tambah Promo
                   </Link>
                   <table
                     className="table table-striped dataTable no-footer display"
@@ -68,9 +67,12 @@ export default function DataBanner() {
                         >
                           No
                         </th>
-                        <th className="sorting">Nama</th>
-                        <th className="sorting">Waktu Dibuat</th>
-                        <th className="sorting">Waktu Diubah</th>
+                        <th className="sorting">Judul</th>
+                        <th className="sorting">Kode Promo</th>
+                        <th className="sorting">Harga Diskon</th>
+                        <th className="sorting">Minimal Belanja</th>
+                        <th className="sorting">Syarat</th>
+                        <th className="sorting">Deskripsi</th>
                         <th className="sorting">Gambar</th>
                         <th className="sorting" style={{ width: "60px" }}>
                           Action
@@ -78,15 +80,19 @@ export default function DataBanner() {
                       </tr>
                     </thead>
                     <tbody>
-                      {banners.map((banner, key) => (
+                      {promos.map((promo, key) => {
+                        return (
                         <tr key={key}>
                           <td>{key + 1}</td>
-                          <td>{banner.name}</td>
-                          <td>{formatDate(banner.createdAt)}</td>
-                          <td>{formatDate(banner.updatedAt)}</td>
+                          <td>{promo.title}</td>
+                          <td>{promo.promo_code}</td>
+                          <td>{formatPrice(promo.promo_discount_price)}</td>
+                          <td>{formatPrice(promo.minimum_claim_price)}</td>
+                          <td>{promo.terms_condition}</td>
+                          <td>{promo.description}</td>
                           <td>
                             <img
-                              src={banner.imageUrl}
+                              src={promo.imageUrl}
                               style={{
                                 width: "100px",
                                 height: "60px",
@@ -97,13 +103,13 @@ export default function DataBanner() {
                           <td>
                             <div className="row">
                               <a
-                                href={`/dashboard/banner/${banner.id}`}
+                                href={`/dashboard/promo/${promo.id}`}
                                 className="btn btn-sm btn-warning mr-2 ml-2"
                               >
                                 <i className="fas fa-pencil-ruler"></i>
                               </a>
                               <button
-                                onClick={() => handleDelete(banner.id)}
+                                onClick={() => handleDelete(promo.id)}
                                 className="btn btn-sm btn-danger"
                               >
                                 <i className="fas fa-trash"></i>
@@ -111,7 +117,7 @@ export default function DataBanner() {
                             </div>
                           </td>
                         </tr>
-                      ))}
+                      )})}
                     </tbody>
                   </table>
                 </div>

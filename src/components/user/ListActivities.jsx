@@ -1,14 +1,14 @@
 "use client";
-import useGetData from "@/services/useGetData";
+import getMethod from "@/utils/getMethod";
 import React, { useEffect, useState } from "react";
 import CardActivities from "./CardActivities";
 
 function ListActivities() {
   const [activities, setActivities] = useState([]);
-  const { getData } = useGetData();
+  const { GET } = getMethod();
 
   useEffect(() => {
-    getData("activities").then((res) => setActivities(res.data.data));
+    GET("activities").then((res) => setActivities(res.data.data));
   }, []);
   const numSlides = Math.ceil(activities.length / 3);
   const slideNumbers = Array.from({ length: numSlides }, (_, index) => index);

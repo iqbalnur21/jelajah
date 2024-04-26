@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export default function POST() {
-  const postMethod = async (url, body) => {
+export default function uploadMethod() {
+  const UPLOAD = async (url, body) => {
     try {
       const res = await axios.post(
         `https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/${url}`,
@@ -19,5 +19,5 @@ export default function POST() {
       console.log(error);
     }
   };
-  return { postMethod };
+  return { UPLOAD };
 }

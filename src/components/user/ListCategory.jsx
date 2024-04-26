@@ -1,14 +1,14 @@
 "use client"
-import useGetData from "@/services/useGetData";
+import getMethod from "@/utils/getMethod";
 import React, { useEffect, useState } from "react";
 import ElementCategory from "./ElementCategory";
 
 function ListCategory() {
   const [categories, setCategory] = useState([]);
-  const { getData } = useGetData();
+  const { GET } = getMethod();
 
   useEffect(() => {
-    getData("categories").then((res) => setCategory(res.data.data));
+    GET("categories").then((res) => setCategory(res.data.data));
   }, []);
   if(categories.length === 0){
     return null

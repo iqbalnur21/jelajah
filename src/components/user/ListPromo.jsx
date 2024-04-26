@@ -1,15 +1,15 @@
 "use client"
-import useGetData from "@/services/useGetData";
+import getMethod from "@/utils/getMethod";
 import React, { useEffect, useState } from "react";
 import CardPromo from "./CardPromo";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function ListPromo() {
   const [promos, setPromos] = useState([]);
-  const { getData } = useGetData();
+  const { GET } = getMethod();
 
   useEffect(() => {
-    getData("promos").then((res) => setPromos(res.data.data));
+    GET("promos").then((res) => setPromos(res.data.data));
   }, []);
   const numSlides = Math.ceil(promos.length / 3);
   const slideNumbers = Array.from({ length: numSlides }, (_, index) => index);

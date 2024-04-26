@@ -1,23 +1,21 @@
 "use client";
 import { useEffect, useState } from "react";
 import getMethod from "@/utils/getMethod";
-import useUpdate from "@/services/useUpdate";
+import useCreate from "@/services/useCreate";
 import useUpload from "@/services/useUpload";
 
-export default function DetailBanner({ params }) {
+export default function CreateCategory() {
   const { GET } = getMethod();
-  const { update } = useUpdate();
+  const { create } = useCreate();
   const { upload } = useUpload();
   const [url, setUrl] = useState("");
-  const [banner, setBanner] = useState({});
-  const [tempImage, setTempImage] = useState("");
+  const [tempImage, setTempImage] = useState(
+    "https://travel-journal-api-bootcamp.do.dibimbing.id/images/1714091131455-default-image.jpg"
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [successStatus, setSuccessStatus] = useState(null);
 
-  useEffect(() => {
-    GET(`banner/${params.id}`).then((res) => setBanner(res.data.data));
-  }, []);
   const handleFileChange = async (e) => {
     setIsLoading(true);
     setTempImage(URL.createObjectURL(event.target.files[0]));
@@ -27,8 +25,10 @@ export default function DetailBanner({ params }) {
 
     try {
       const res = await upload("upload-image", formData);
+      setMessage(null);
       setUrl(res.data.url);
       setIsLoading(false);
+      console.log("url: ", res.data.url);
       return res.data.url;
     } catch (error) {
       setIsLoading(false);
@@ -40,27 +40,29 @@ export default function DetailBanner({ params }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    if (e.target.name.value === "") {
-      setMessage("Isi Semua Data");
+    if (e.target.name.value === "" || url === "") {
       setIsLoading(false);
+      setMessage("Isi Semua Data");
       setSuccessStatus(false);
       return false;
     }
-    console.log(banner.imageUrl);
-    const bannerData = {
+    const categoryData = {
       name: e.target.name.value,
-      imageUrl: url ? url : banner.imageUrl,
+      imageUrl: url,
     };
-    console.log("submit: ", bannerData);
+    console.log("submit: ", categoryData);
     try {
-      const res = await update(`update-banner/${params.id}`, bannerData);
+      const res = await create(`create-category`, categoryData);
       if (res.status === 200) {
-        setIsLoading(false);
-        setMessage("Berhasil Mengubah Banner");
-        setSuccessStatus(true);
+        setTimeout(() => {
+          setIsLoading(false);
+          setMessage("Berhasil Menambah Kategori");
+          setSuccessStatus(true);
+          router.push("/dashboard/category");
+        }, 3000);
       }
     } catch (error) {
-      setMessage("Gagal Mengubah Banner");
+      setMessage("Gagal Menambah Kategori");
       setSuccessStatus(false);
       setIsLoading(false);
       console.log(error);
@@ -71,7 +73,7 @@ export default function DetailBanner({ params }) {
       <div className="main-content">
         <section className="section">
           <div className="section-header">
-            <h1>Ubah Banner</h1>
+            <h1>Tambah Category</h1>
           </div>
         </section>
         <form
@@ -110,7 +112,7 @@ export default function DetailBanner({ params }) {
           <div className="row">
             <div className="align-self-center col-md-3">
               <img
-                src={tempImage ? tempImage : banner.imageUrl}
+                src={tempImage}
                 className="mb-4 rounded"
                 style={{ maxWidth: "320px" }}
               ></img>
@@ -118,12 +120,7 @@ export default function DetailBanner({ params }) {
             <div className="align-self-center col-md-9">
               <div className="form-group">
                 <label htmlFor="">Nama:</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  defaultValue={banner.name}
-                  name="name"
-                ></input>
+                <input type="text" className="form-control" name="name"></input>
               </div>
               <div className="form-group">
                 <label htmlFor="">Gambar:</label>
@@ -138,7 +135,7 @@ export default function DetailBanner({ params }) {
           </div>
           <div className="row col-md-6">
             <a
-              href="/dashboard/banner"
+              href="/dashboard/category"
               className="btn btn-danger mt-4 mr-2 float-center"
             >
               Kembali
