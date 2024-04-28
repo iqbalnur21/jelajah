@@ -47,6 +47,7 @@ function ListActivities() {
                       myArr = [];
                       return (
                         <div
+                        key={adjustedKey}
                           className={
                             "carousel-item" +
                             (adjustedKey === 3 ||

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import CardPromo from "./CardPromo";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,8 +14,8 @@ function ListPromo() {
   const numSlides = Math.ceil(promos.length / 3);
   const slideNumbers = Array.from({ length: numSlides }, (_, index) => index);
   let myArr = [];
-  if(promos.length === 0){
-    return null
+  if (promos.length === 0) {
+    return null;
   }
   return (
     <>
@@ -35,27 +35,31 @@ function ListPromo() {
                   {promos.map((promo, key) => {
                     let adjustedKey = key + 1;
                     myArr.push(promo);
-                    if (adjustedKey % 3 === 0 || adjustedKey === promos.length) {
+                    if (
+                      adjustedKey % 3 === 0 ||
+                      adjustedKey === promos.length
+                    ) {
                       const renderedPromos = myArr.map((arrDetail, keyIn) => (
-                        <CardPromo promo={arrDetail} key={keyIn} />
+                        <CardPromo promo={arrDetail} key={arrDetail.id} />
                       ));
                       myArr = [];
                       return (
                         <div
+                          key={adjustedKey}
                           className={
-                            "carousel-item" + (adjustedKey === 3 ? " active" : "")
+                            "carousel-item" +
+                            (adjustedKey === 3 ? " active" : "")
                           }
                           data-bs-interval="3000"
                         >
-                          <div
-                            className="row h-100 align-items-center g-2"
-                          >
+                          <div className="row h-100 align-items-center g-2">
                             {renderedPromos}
                           </div>
                         </div>
                       );
                     }
                   })}
+
                   <div className="row">
                     <button
                       className="carousel-control-prev"

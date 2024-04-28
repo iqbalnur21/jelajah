@@ -1,5 +1,4 @@
 import { StoreProvider } from "@/redux/StoreProvider";
-import Head from "next/head";
 
 export const metadata = {
   title: "Jelajah",
@@ -10,9 +9,6 @@ export default function RootLayout({ children }) {
   return (
     <StoreProvider>
     <html lang="en">
-      <Head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      </Head>
       <body
       // className={inter.className}
       >

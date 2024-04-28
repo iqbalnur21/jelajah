@@ -113,6 +113,7 @@ export default function DetailActivityPage({ params }) {
                               myArr = [];
                               return (
                                 <div
+                                key={adjustedKey}
                                   className={
                                     "carousel-item" +
                                     (adjustedKey === 3 ? " active" : ""||

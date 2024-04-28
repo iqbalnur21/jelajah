@@ -5,7 +5,7 @@ import getMethod from "@/utils/getMethod";
 import { formatPrice } from "@/utils";
 import uploadMethod from "@/utils/uploadMethod";
 
-export default function createActivity() {
+export default function CreateActivity() {
   const { GET } = getMethod();
   const { POST } = postMethod();
   const { UPLOAD } = uploadMethod();

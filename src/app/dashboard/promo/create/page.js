@@ -4,7 +4,7 @@ import getMethod from "@/utils/getMethod";
 import postMethod from "@/utils/postMethod";
 import uploadMethod from "@/utils/uploadMethod";
 
-export default function createPromo() {
+export default function CreatePromo() {
   const { GET } = getMethod();
   const { POST } = postMethod();
   const { UPLOAD } = uploadMethod();
