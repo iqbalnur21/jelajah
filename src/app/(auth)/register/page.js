@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "@/assets/admin/assets/css/style.css";
-import "@/assets/admin/assets/css/components.css";
+import "../../../assets/admin/assets/css/style.css";
+import "../../../assets/admin/assets/css/components.css";
 import { useRouter } from "next/navigation";
 import authMethod from "@/utils/authMethod";
 import Link from "next/link";
