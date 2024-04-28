@@ -22,9 +22,9 @@ export const formatDate = (dateString) => {
   const dayOfMonth = date.getDate();
   const month = months[date.getMonth()];
   const year = date.getFullYear();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
+  const hours = ('0' + date.getHours()).slice(-2);;
+  const minutes = ('0' + date.getMinutes()).slice(-2);
+  const seconds = ('0' + date.getSeconds()).slice(-2);
 
   return `${dayOfWeek}, ${dayOfMonth} ${month} ${year} (${hours}:${minutes}:${seconds})`;
 };

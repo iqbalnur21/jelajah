@@ -4,10 +4,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@/assets/admin/assets/css/style.css";
 import "@/assets/admin/assets/css/components.css";
 import { useRouter } from "next/navigation";
-import useAuth from "@/services/useAuth";
+import authMethod from "@/utils/authMethod";
+import Link from "next/link";
+import uploadMethod from "@/utils/uploadMethod";
 // import "@/assets/admin/assets/css/custom.css";
 
 export default function RegisterPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(true);
+  const [message, setMessage] = useState(null);
+  const [url, setUrl] = useState("");
+  const router = useRouter();
+  const { AUTH } = authMethod();
+  const {UPLOAD} = uploadMethod();
+
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap.min.js");
     import("@/assets/user/fontawesome/all.min.js");
@@ -16,12 +26,28 @@ export default function RegisterPage() {
     import("@/assets/admin/assets/js/custom.js");
   }, []);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(true);
-  const [message, setMessage] = useState(null);
-  const router = useRouter();
-  const { auth } = useAuth();
-  const handleSubmit = async (e) => {
+
+  const handleFileChange = async (e) => {
+    setIsLoading(true);
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const res = await UPLOAD("upload-image", formData);
+      setMessage(null);
+      setUrl(res.data.url);
+      setIsLoading(false);
+      console.log("url: ", res.data.url);
+      return res.data.url;
+    } catch (error) {
+      setIsLoading(false);
+      setMessage("Gagal Upload Gambar");
+      setIsSuccess(false);
+      console.log(error);
+    }
+  };
+    const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -30,7 +56,7 @@ export default function RegisterPage() {
       !e.target.name.value ||
       !e.target.password.value ||
       !e.target.passwordRepeat.value ||
-      !e.target.profilePictureUrl.value ||
+      !url ||
       !e.target.phoneNumber.value
     ) {
       setMessage("Pastikan Semua Data Terisi");
@@ -46,11 +72,11 @@ export default function RegisterPage() {
       password: e.target.password.value,
       passwordRepeat: e.target.passwordRepeat.value,
       role: "admin",
-      profilePictureUrl: e.target.profilePictureUrl.value,
+      profilePictureUrl: url,
       phoneNumber: e.target.phoneNumber.value,
     };
-    
-    const res = await auth("register", userData);
+
+    const res = await AUTH("register", userData);
     console.log(res);
     try {
       if (res.status === 200) {
@@ -107,29 +133,32 @@ export default function RegisterPage() {
                 class="form-control"
                 name="name"
                 tabindex="1"
-                required
                 autofocus
               ></input>
               <div class="invalid-feedback">Masukkan Nama Anda</div>
             </div>{" "}
-            <div class="form-group">
-              <div class="d-block">
-                <label for="profilePictureUrl" class="control-label">
-                  URL Foto Profil
-                </label>
-              </div>
-              <input
-                id="profilePictureUrl"
-                type="text"
-                class="form-control"
-                name="profilePictureUrl"
-                tabindex="2"
-                required
-              ></input>
-              <div class="invalid-feedback">Masukkan URL Foto Profil Anda</div>
-            </div>
             <div class="row">
-              <div className="col-md-6">
+              <div className="col-md-4">
+                <div class="form-group">
+                  <div class="d-block">
+                    <label for="profilePictureUrl" class="control-label">
+                      URL Foto Profil
+                    </label>
+                  </div>
+                  <input
+                    id="profilePictureUrl"
+                    type="file"
+                    class="form-control"
+                    name="profilePictureUrl"
+                    onChange={handleFileChange}
+                    tabindex="2"
+                  ></input>
+                  <div class="invalid-feedback">
+                    Masukkan URL Foto Profil Anda
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4">
                 <div class="form-group">
                   <label for="email">Email</label>
                   <input
@@ -138,13 +167,12 @@ export default function RegisterPage() {
                     class="form-control"
                     name="email"
                     tabindex="1"
-                    required
                     autofocus
                   ></input>
                   <div class="invalid-feedback">Masukkan Email Anda</div>
                 </div>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <div class="form-group">
                   <label for="phoneNumber">No Telepon</label>
                   <input
@@ -153,7 +181,6 @@ export default function RegisterPage() {
                     class="form-control"
                     name="phoneNumber"
                     tabindex="1"
-                    required
                     autofocus
                   ></input>
                   <div class="invalid-feedback">Masukkan No Telepon Anda</div>
@@ -174,7 +201,6 @@ export default function RegisterPage() {
                     class="form-control"
                     name="password"
                     tabindex="2"
-                    required
                   ></input>
                   <div class="invalid-feedback">Masukkan Kata Sandi Anda</div>
                 </div>
@@ -192,7 +218,6 @@ export default function RegisterPage() {
                     class="form-control"
                     name="passwordRepeat"
                     tabindex="2"
-                    required
                   ></input>
                   <div class="invalid-feedback">
                     Masukkan Ulangi Kata Sandi Anda
@@ -200,13 +225,20 @@ export default function RegisterPage() {
                 </div>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group justify-content-between d-flex">
+              <Link href="/login" className="btn btn-success btn-lg">
+                Login
+              </Link>
               <button
                 type="submit"
-                class="btn btn-primary btn-lg btn-block"
+                className={
+                  isLoading
+                    ? "btn disabled btn-primary btn-progress"
+                    : "btn btn-primary btn-lg"
+                }
                 tabindex="4"
               >
-                Daftar
+                {isLoading ? "" : "Daftar"}
               </button>
             </div>
           </form>

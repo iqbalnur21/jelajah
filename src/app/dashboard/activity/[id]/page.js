@@ -37,7 +37,7 @@ export default function DetailActivity({ params }) {
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append("image", file);
-  
+
       const res = await UPLOAD("upload-image", formData);
       setUrl(res.data.url);
       setIsLoading(false);
@@ -47,7 +47,7 @@ export default function DetailActivity({ params }) {
       setMessage("Gagal Upload Gambar");
       setSuccessStatus(false);
       console.log(error);
-      window.scrollTo({top:0, behavior:'smooth'});
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
   const handleMapUrlChange = async (e) => {
@@ -85,7 +85,7 @@ export default function DetailActivity({ params }) {
       setMessage("Isi Semua Data");
       setIsLoading(false);
       setSuccessStatus(false);
-      window.scrollTo({top:0, behavior:'smooth'});
+      window.scrollTo({ top: 0, behavior: "smooth" });
       return false;
     }
     try {
@@ -109,22 +109,22 @@ export default function DetailActivity({ params }) {
         const res = await POST(`update-activity/${params.id}`, dataActivity);
         if (res.status === 200) {
           setIsLoading(false);
-          setMessage("Berhasil Mengubah Activity");
+          setMessage("Berhasil Mengubah Aktivitas");
           setSuccessStatus(true);
-          window.scrollTo({top:0, behavior:'smooth'});
+          window.scrollTo({ top: 0, behavior: "smooth" });
         }
       } catch (error) {
-        setMessage("Gagal Mengubah Activity");
+        setMessage("Gagal Mengubah Aktivitas");
         setSuccessStatus(false);
         setIsLoading(false);
-        window.scrollTo({top:0, behavior:'smooth'});
+        window.scrollTo({ top: 0, behavior: "smooth" });
         console.log(error);
       }
     } catch (error) {
       setMessage("Kesalahan Saat Menampung Data");
       setSuccessStatus(false);
       setIsLoading(false);
-      window.scrollTo({top:0, behavior:'smooth'});
+      window.scrollTo({ top: 0, behavior: "smooth" });
       console.log(error);
     }
   };
@@ -134,7 +134,7 @@ export default function DetailActivity({ params }) {
       <div className="main-content">
         <section className="section">
           <div className="section-header">
-            <h1>Ubah Activity</h1>
+            <h1>Ubah Aktivitas</h1>
           </div>
         </section>
         <form
@@ -182,19 +182,29 @@ export default function DetailActivity({ params }) {
             <div className="align-self-center text-center col-md-6">
               {map ? (
                 <>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: map,
-                    }}
-                  ></div>
+                  <iframe
+                    srcDoc={url}
+                    width={400}
+                    height={300}
+                    frameBorder="0"
+                    scrolling="no"
+                    title="Maps"
+                    style={{ border: "none" }}
+                    allowFullScreen
+                  ></iframe>
                 </>
               ) : (
                 <>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: activity.location_maps,
-                    }}
-                  ></div>
+                  <iframe
+                    srcDoc={activity.location_maps}
+                    width={400}
+                    height={300}
+                    frameBorder="0"
+                    scrolling="no"
+                    title="Maps"
+                    style={{ border: "none" }}
+                    allowFullScreen
+                  ></iframe>
                 </>
               )}
             </div>

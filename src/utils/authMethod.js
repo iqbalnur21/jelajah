@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default function authMethod() {
-  const auth = async (url, body) => {
+  const AUTH = async (url, body) => {
     try {
       const res = await axios.post(
         `https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/${url}`,
@@ -19,7 +19,7 @@ export default function authMethod() {
     }
   };
 
-  const userLog = async (url, callback) => {
+  const userLoginStatus = async (url, callback) => {
     try {
       const res = await axios.get(
         `https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/${url}`,
@@ -30,16 +30,11 @@ export default function authMethod() {
           },
         }
       );
-      if (url === "logout") {
-        localStorage.removeItem("token");
-        callback(res);
-      } else {
-        callback(res.data.data);
-      }
+      return callback(res.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  return { auth, userLog };
+  return { AUTH, userLoginStatus };
 }

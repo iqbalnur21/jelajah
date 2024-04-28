@@ -86,7 +86,7 @@ export default function createPromo() {
       <div className="main-content">
         <section className="section">
           <div className="section-header">
-            <h1>Ubah Promo</h1>
+            <h1>Tambah Promo</h1>
           </div>
         </section>
         <form
@@ -146,7 +146,6 @@ export default function createPromo() {
                   className="form-control"
                   name="imageUrl"
                   onChange={handleFileChange}
-                  defaultValue={tempImage}
                 ></input>
               </div>
             </div>

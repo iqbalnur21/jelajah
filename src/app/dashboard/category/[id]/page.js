@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import getMethod from "@/utils/getMethod";
-import useUpdate from "@/services/useUpdate";
-import useUpload from "@/services/useUpload";
+import postMethod from "@/utils/postMethod";
+import uploadMethod from "@/utils/uploadMethod";
 
 export default function DetailCategory({ params }) {
   const { GET } = getMethod();
-  const { update } = useUpdate();
-  const { upload } = useUpload();
+  const { POST } = postMethod();
+  const { UPLOAD} = uploadMethod();
   const [url, setUrl] = useState("");
   const [category, setCategory] = useState({});
   const [tempImage, setTempImage] = useState("");
@@ -26,7 +26,7 @@ export default function DetailCategory({ params }) {
     formData.append("image", file);
 
     try {
-      const res = await upload("upload-image", formData);
+      const res = await UPLOAD("upload-image", formData);
       setUrl(res.data.url);
       setIsLoading(false);
       return res.data.url;
@@ -53,14 +53,14 @@ export default function DetailCategory({ params }) {
     };
     console.log("submit: ", categoryData);
     try {
-      const res = await update(`update-category/${params.id}`, categoryData);
+      const res = await POST(`update-category/${params.id}`, categoryData);
       if (res.status === 200) {
         setIsLoading(false);
-        setMessage("Berhasil Mengubah Category");
+        setMessage("Berhasil Mengubah Kategori");
         setSuccessStatus(true);
       }
     } catch (error) {
-      setMessage("Gagal Mengubah Category");
+      setMessage("Gagal Mengubah Kategori");
       setSuccessStatus(false);
       setIsLoading(false);
       console.log(error);
@@ -71,7 +71,7 @@ export default function DetailCategory({ params }) {
       <div className="main-content">
         <section className="section">
           <div className="section-header">
-            <h1>Ubah Category</h1>
+            <h1>Ubah Kategori</h1>
           </div>
         </section>
         <form

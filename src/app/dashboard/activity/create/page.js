@@ -12,7 +12,6 @@ export default function createActivity() {
   const [categories, setCategories] = useState([]);
   const [url, setUrl] = useState("");
   const [map, setMap] = useState("");
-  const [activity, setActivity] = useState({});
   const [tempImage, setTempImage] = useState(
     "https://travel-journal-api-bootcamp.do.dibimbing.id/images/1714091131455-default-image.jpg"
   );
@@ -67,7 +66,7 @@ export default function createActivity() {
       e.target.categoryId.value === "" ||
       e.target.title.value === "" ||
       e.target.description.value === "" ||
-      (url ? url : activity.imageUrls) === "" ||
+      url === "" ||
       e.target.price.value === "" ||
       e.target.price_discount.value === "" ||
       e.target.rating.value === "" ||
@@ -130,7 +129,7 @@ export default function createActivity() {
       <div className="main-content">
         <section className="section">
           <div className="section-header">
-            <h1>Ubah Aktivitas</h1>
+            <h1>Tambah Aktivitas</h1>
           </div>
         </section>
         <form
@@ -178,19 +177,24 @@ export default function createActivity() {
             <div className="align-self-center text-center col-md-6">
               {map ? (
                 <>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: map,
-                    }}
-                  ></div>
+                  <iframe
+                    srcDoc={activity.location_maps}
+                    width={400}
+                    height={300}
+                    frameBorder="0"
+                    scrolling="no"
+                    title="Maps"
+                    style={{ border: "none" }}
+                    allowFullScreen
+                  ></iframe>
                 </>
               ) : (
                 <>
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d32671073.227862768!2d70.2348173707852!3d-1.6479519937271374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c07d7496404b7%3A0xe37b4de71badf485!2sIndonesia!5e0!3m2!1sen!2suk!4v1714147178366!5m2!1sen!2suk"
-                    width="400"
-                    height="300"
-                    style={{border:0}}
+                    width={400}
+                    height={300}
+                    style={{ border: 0 }}
                     allowfullscreen=""
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"
@@ -275,10 +279,7 @@ export default function createActivity() {
                 <option>Select</option>
                 {categories.map((category) => {
                   return (
-                    <option
-                      key={category.id}
-                      value={category.id}
-                    >
+                    <option key={category.id} value={category.id}>
                       {category.name}
                     </option>
                   );

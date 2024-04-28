@@ -7,14 +7,20 @@ import "@/assets/admin/node_modules/datatables/media/css/jquery.dataTables.min.c
 // import "@/assets/admin/node_modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css";
 import "@/assets/admin/assets/css/style.css";
 import "@/assets/admin/assets/css/components.css";
-import Link from "next/link";
-import useAuth from "@/services/useAuth";
+import authMethod from "@/utils/authMethod";
+import { useRouter } from "next/navigation";
 
 export default function DashboardLayout({ children }) {
-  const { userLog } = useAuth();
+  const router = useRouter();
+
+  if (!localStorage.getItem("token")) {
+    router.push("/login");
+  }
+
+  const { userLoginStatus } = authMethod();
   const [user, setUser] = useState({});
   useEffect(() => {
-    userLog("user", (res) => {
+    userLoginStatus("user", (res) => {
       setUser(res);
     });
     import("@/assets/admin/node_modules/jquery/dist/jquery.min.js");
@@ -30,15 +36,22 @@ export default function DashboardLayout({ children }) {
     import("@/assets/admin/assets/js/page/modules-sweetalert.js");
     import("@/assets/admin/assets/js/scripts.js");
     import("@/assets/admin/assets/js/custom.js");
-    import("@/assets/admin/node_modules/datatables/media/js/jquery.dataTables.min.js");
+    import(
+      "@/assets/admin/node_modules/datatables/media/js/jquery.dataTables.min.js"
+    );
     // import("@/assets/admin/node_modules/datatables/Select-1.2.4/js/dataTables.select.min.js");
   }, []);
-
-  function handleLogout() {
-   
-    // localStorage.removeItem("token");
-  }
-  // console.log(user);
+  const handleLogout = async () => {
+    const confirmed = confirm("Yakin Ingin Keluar ?");
+    if (confirmed) {
+      await userLoginStatus("logout");
+      console.log(localStorage.getItem("token"));
+      localStorage.removeItem("token");
+      console.log(localStorage.getItem("token"));
+      router.push("/login");
+    }
+  };
+  console.log(user);
   return (
     <div className="main-wrapper">
       <div className="navbar-bg"></div>
@@ -66,10 +79,7 @@ export default function DashboardLayout({ children }) {
             </a>
             <div className="dropdown-menu dropdown-menu-right">
               <div className="dropdown-title">Menu</div>
-              <a
-                href="/dashboard/profile"
-                className="dropdown-item has-icon"
-              >
+              <a href="/dashboard/profile" className="dropdown-item has-icon">
                 <i className="fas fa-user"></i> Profile
               </a>
               <a
@@ -101,7 +111,8 @@ export default function DashboardLayout({ children }) {
             <li className="menu-header">Menu</li>
             <li>
               <a className="nav-link" href={`/dashboard/banner`}>
-                <i className="fas fa-window-restore"></i> <span>Data Banner</span>
+                <i className="fas fa-window-restore"></i>{" "}
+                <span>Data Banner</span>
               </a>
             </li>
             <li>
@@ -130,11 +141,7 @@ export default function DashboardLayout({ children }) {
               </a>
             </li>
             <li>
-              <a
-                onClick={handleLogout}
-                className="nav-link"
-                href="<?php echo site_url('auth/logout') ?>"
-              >
+              <a onClick={handleLogout} className="nav-link">
                 <i className="fas fa-sign-out-alt text-danger"></i>{" "}
                 <span className="text-danger">Logout</span>
               </a>

@@ -17,6 +17,7 @@ export default function DetailActivityPage({ params }) {
     import("bootstrap/dist/js/bootstrap.min.js");
     import("@/assets/user/fontawesome/all.min.js");
     import("@/assets/user/js/theme.js");
+    import("@/assets/user/js/custom.js");
     GET(`activities-by-category/${params.id}`).then((res) =>
       setActivities(res.data.data)
     );

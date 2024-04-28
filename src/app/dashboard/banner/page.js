@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import getMethod from "@/utils/getMethod";
 import Link from "next/link";
 import { formatDate } from "@/utils";
-import useDelete from "@/services/useDelete";
+import deleteMethod from "@/utils/deleteMethod";
 
 export default function DataBanner() {
   const [banners, setBanners] = useState([]);
   const { GET } = getMethod();
-  const { deleteData } = useDelete();
+  const { DELETE } = deleteMethod();
 
   useEffect(() => {
     GET("banners").then((res) => setBanners(res.data.data));
@@ -18,7 +18,7 @@ export default function DataBanner() {
     const confirmed = confirm("Yakin Ingin Hapus Banner Ini ?");
     if (confirmed) {
       try {
-        deleteData(`delete-banner/${id}`).then((res) => {
+        DELETE(`delete-banner/${id}`).then((res) => {
           if (res.status === 200) {
             window.location.reload();
           }

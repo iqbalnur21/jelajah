@@ -12,15 +12,27 @@ export default function DetailActivityPage({ params }) {
   const { GET } = getMethod();
   const [url, setUrl] = useState("");
   const [activity, setActivity] = useState({});
+  const [iframeDimensions, setIframeDimensions] = useState({
+    width: "350",
+    height: "200",
+  });
   const calDisc = (
     ((activity.price - activity.price_discount) / activity.price) *
     100
   ).toFixed(2);
   const discount = calDisc < 1 ? 100 : calDisc;
   useEffect(() => {
+    const iframe = document.querySelector("iframe");
+    if (iframe) {
+      iframe.width = iframeDimensions.width;
+      iframe.height = iframeDimensions.height;
+    }
+  }, [iframeDimensions]);
+  useEffect(() => {
     import("bootstrap/dist/js/bootstrap.min.js");
     import("@/assets/user/fontawesome/all.min.js");
     import("@/assets/user/js/theme.js");
+    import("@/assets/user/js/custom.js");
     GET(`activity/${params.id}`).then((res) => setActivity(res.data.data));
   }, []);
   async function checkImageUrls(activity) {
@@ -41,20 +53,19 @@ export default function DetailActivityPage({ params }) {
     }
   }
 
-  checkImageUrls(activity);
+  checkImageUrls(activity.imageUrls ? activity?.imageUrls[0] : activity);
 
   if (!url) {
     setUrl(
       "https://travel-journal-api-bootcamp.do.dibimbing.id/images/1714091131455-default-image.jpg"
     );
   }
-
   let iframe = document.querySelector("iframe");
   if (iframe) {
     iframe.width = "350";
     iframe.height = "200";
   }
-
+  console.log(document.querySelector("iframe"));
   return (
     <>
       <Navbar />
@@ -70,7 +81,7 @@ export default function DetailActivityPage({ params }) {
                   <img
                     class="img-fluid m-5"
                     style={{ borderRadius: "20px" }}
-                    src={url}
+                    src={activity?.imageUrls ? activity?.imageUrls[0] : url}
                     alt="Card image"
                   ></img>
                 </div>
@@ -92,9 +103,7 @@ export default function DetailActivityPage({ params }) {
                         </span>
                       </div>
                       <h1 className="mb-3 text-primary fw-bolder fs-3">
-                        <span>
-                          {formatPrice(activity.price_discount)}
-                        </span>
+                        <span>{formatPrice(activity.price_discount)}</span>
                       </h1>
                     </div>
                     <div class="text-dark">
@@ -133,11 +142,16 @@ export default function DetailActivityPage({ params }) {
                       {activity.location_maps ? (
                         <>
                           <span class="text-dark">Google Maps: </span>
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: activity.location_maps,
-                            }}
-                          ></div>
+                          <iframe
+                            srcDoc={activity.location_maps}
+                            width={400}
+                            height={300}
+                            frameBorder="0"
+                            scrolling="no"
+                            title="Maps"
+                            style={{ border: "none" }}
+                            allowFullScreen
+                          ></iframe>
                         </>
                       ) : null}
                     </div>

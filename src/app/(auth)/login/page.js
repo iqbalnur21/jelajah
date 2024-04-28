@@ -4,9 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@/assets/admin/assets/css/style.css";
 import "@/assets/admin/assets/css/components.css";
 import { useRouter } from "next/navigation";
-import useAuth from "@/services/useAuth";
+import authMethod from "@/utils/authMethod";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/redux/slices/UserLoggedSlice";
+import Link from "next/link";
 // import "@/assets/admin/assets/css/custom.css";
 
 export default function LoginPage() {
@@ -19,8 +20,8 @@ export default function LoginPage() {
   }, []);
 
   const router = useRouter();
-  const { auth } = useAuth();
-  const { userLog } = useAuth();
+  const { AUTH} = authMethod();
+  const { userLoginStatus} = authMethod();
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(true);
   const [message, setMessage] = useState(null);
@@ -43,14 +44,14 @@ export default function LoginPage() {
     };
 
     try {
-      const res = await auth("login", userData);
+      const res = await AUTH("login", userData);
       if (res.status === 200) {
         getUserLogged();
         setTimeout(() => {
-          router.push("/dashboard");
           setMessage(null);
           setIsLoading(false);
           setIsSuccess(true);
+          router.push("/dashboard");
         }, 2000);
       }
     } catch (error) {
@@ -62,7 +63,7 @@ export default function LoginPage() {
 
   const getUserLogged = () => {
     if (localStorage.getItem("token")) {
-      userLog("user", (res) => dispatch(setUser(res)));
+      userLoginStatus("user", (res) => dispatch(setUser(res)));
     }
   };
 
@@ -125,20 +126,26 @@ export default function LoginPage() {
               ></input>
               <div className="invalid-feedback">Masukkan Password Anda</div>
             </div>
-
-            <div className="form-group">
+            <div className="justify-content-between d-flex">
+              <Link
+                href="/register"
+                className="btn btn-success btn-lg"
+              >
+                Daftar
+              </Link>
               <button
                 type="submit"
                 className={
                   isLoading
                     ? "btn disabled btn-primary btn-progress"
-                    : "btn btn-primary btn-lg btn-block"
+                    : "btn btn-primary btn-lg"
                 }
                 tabindex="4"
               >
-                Masuk
+                Login
               </button>
             </div>
+            <div className="form-group text-center"></div>
           </form>
         </div>
       </div>

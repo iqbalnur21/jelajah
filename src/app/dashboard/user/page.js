@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import getMethod from "@/utils/getMethod";
 import Link from "next/link";
 import { checkImageUrl, formatDate } from "@/utils";
-import useDelete from "@/services/useDelete";
+import deleteMethod from "@/utils/deleteMethod";
 import axios from "axios";
-import useUpdate from "@/services/useUpdate";
+import postMethod from "@/utils/postMethod";
 
 export default function DataUser() {
   const [users, setUsers] = useState([]);
-  const { update } = useUpdate();
+  const { POST } = postMethod();
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [successStatus, setSuccessStatus] = useState(null);
@@ -34,7 +34,7 @@ export default function DataUser() {
     const confirmed = confirm("Yakin Ubah Role User Ini ke Admin ?");
     if (confirmed) {
       try {
-        const res = await update(`update-user-role/${id}`, {
+        const res = await POST(`update-user-role/${id}`, {
           role: "admin",
         });
         if (res.status === 200) {

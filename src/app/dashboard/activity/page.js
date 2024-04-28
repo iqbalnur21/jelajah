@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import getMethod from "@/utils/getMethod";
 import Link from "next/link";
 import {formatPrice } from "@/utils";
-import useDelete from "@/services/useDelete";
+import deleteMethod from "@/utils/deleteMethod";
 
 export default function DataActivity() {
   const [activities, setActivities] = useState([]);
   const { GET } = getMethod();
-  const { deleteData } = useDelete();
+  const { DELETE } = deleteMethod();
 
   useEffect(() => {
     GET("activities").then((res) => setActivities(res.data.data));
@@ -18,7 +18,7 @@ export default function DataActivity() {
     const confirmed = confirm("Yakin Ingin Hapus Activity Ini ?");
     if (confirmed) {
       try {
-        deleteData(`delete-activity/${id}`).then((res) => {
+        DELETE(`delete-activity/${id}`).then((res) => {
           if (res.status === 200) {
             window.location.reload();
           }

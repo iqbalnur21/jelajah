@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import getMethod from "@/utils/getMethod";
-import useUpdate from "@/services/useUpdate";
-import useUpload from "@/services/useUpload";
+import postMethod from "@/utils/postMethod";
+import uploadMethod from "@/utils/uploadMethod";
 
 export default function DetailBanner({ params }) {
   const { GET } = getMethod();
-  const { update } = useUpdate();
-  const { upload } = useUpload();
+  const { POST } = postMethod();
+  const { UPLOAD} = uploadMethod();
   const [url, setUrl] = useState("");
   const [banner, setBanner] = useState({});
   const [tempImage, setTempImage] = useState("");
@@ -26,7 +26,7 @@ export default function DetailBanner({ params }) {
     formData.append("image", file);
 
     try {
-      const res = await upload("upload-image", formData);
+      const res = await UPLOAD("upload-image", formData);
       setUrl(res.data.url);
       setIsLoading(false);
       return res.data.url;
@@ -53,7 +53,7 @@ export default function DetailBanner({ params }) {
     };
     console.log("submit: ", bannerData);
     try {
-      const res = await update(`update-banner/${params.id}`, bannerData);
+      const res = await POST(`update-banner/${params.id}`, bannerData);
       if (res.status === 200) {
         setIsLoading(false);
         setMessage("Berhasil Mengubah Banner");

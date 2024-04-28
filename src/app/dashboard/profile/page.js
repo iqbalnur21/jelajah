@@ -1,21 +1,21 @@
 "use client";
 import { useEffect, useState } from "react";
-import useUpdate from "@/services/useUpdate";
-import useUpload from "@/services/useUpload";
-import useAuth from "@/services/useAuth";
+import postMethod from "@/utils/postMethod";
+import uploadMethod from "@/utils/uploadMethod";
+import authMethod from "@/utils/authMethod";
 
 export default function ProfilePage() {
-  const { update } = useUpdate();
-  const { upload } = useUpload();
+  const { POST } = postMethod();
+  const { UPLOAD} = uploadMethod();
   const [url, setUrl] = useState("");
   const [user, setUser] = useState({});
   const [tempImage, setTempImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [successStatus, setSuccessStatus] = useState(null);
-  const { userLog } = useAuth();
+  const { userLoginStatus} = authMethod();
   useEffect(() => {
-    userLog("user", (res) => {
+    userLoginStatus("user", (res) => {
       setUser(res);
     });
   }, []);
@@ -27,7 +27,7 @@ export default function ProfilePage() {
     formData.append("image", file);
 
     try {
-      const res = await upload("upload-image", formData);
+      const res = await UPLOAD("upload-image", formData);
       setUrl(res.data.url);
       setIsLoading(false);
       return res.data.url;
@@ -56,7 +56,7 @@ export default function ProfilePage() {
     };
     console.log("submit: ", userData);
     try {
-      const res = await update(`update-profile`, userData);
+      const res = await POST(`update-profile`, userData);
       if (res.status === 200) {
         setIsLoading(false);
         setMessage("Berhasil Mengubah User");

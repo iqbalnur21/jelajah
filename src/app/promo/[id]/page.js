@@ -20,6 +20,7 @@ export default function DetailPromoPage({ params }) {
     import("bootstrap/dist/js/bootstrap.min.js");
     import("@/assets/user/fontawesome/all.min.js");
     import("@/assets/user/js/theme.js");
+    import("@/assets/user/js/custom.js");
     GET(`promo/${params.id}`).then((res) => setPromo(res.data.data));
   }, []);
   async function checkImageUrls(promo) {

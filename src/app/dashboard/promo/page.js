@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import getMethod from "@/utils/getMethod";
 import Link from "next/link";
 import {formatPrice } from "@/utils";
-import useDelete from "@/services/useDelete";
+import deleteMethod from "@/utils/deleteMethod";
 
 export default function DataPromo() {
   const [promos, setPromos] = useState([]);
   const { GET } = getMethod();
-  const { deleteData } = useDelete();
+  const { DELETE } = deleteMethod();
 
   useEffect(() => {
     GET("promos").then((res) => setPromos(res.data.data));
@@ -18,7 +18,7 @@ export default function DataPromo() {
     const confirmed = confirm("Yakin Ingin Hapus Promo Ini ?");
     if (confirmed) {
       try {
-        deleteData(`delete-promo/${id}`).then((res) => {
+        DELETE(`delete-promo/${id}`).then((res) => {
           if (res.status === 200) {
             window.location.reload();
           }

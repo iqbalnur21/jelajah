@@ -1,8 +1,8 @@
 "use client"
-import getMethod from "@/utils/getMethod";
 import React, { useEffect, useState } from "react";
 import CardPromo from "./CardPromo";
 import "bootstrap/dist/css/bootstrap.min.css";
+import getMethod from "@/utils/getMethod";
 
 function ListPromo() {
   const [promos, setPromos] = useState([]);
@@ -49,7 +49,6 @@ function ListPromo() {
                         >
                           <div
                             className="row h-100 align-items-center g-2"
-                            key={key}
                           >
                             {renderedPromos}
                           </div>

@@ -38,10 +38,13 @@ function CardPromo({ promo }) {
     <Link
       href={`/promo/${promo.id}`}
       className="col-md-4 mb-3 mb-md-0 h-100"
-      key={promo.id}
       style={{ textDecoration: "none" }}
     >
-      <div className="card card-span h-100 text-white" style={{ padding: "0" }}>
+      <div
+        className="card card-span h-100 text-white"
+        style={{ padding: "0" }}
+        key={promo.id}
+      >
         <img
           className="img-fluid object-fit-cover"
           src={url}

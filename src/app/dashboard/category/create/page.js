@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import getMethod from "@/utils/getMethod";
-import useCreate from "@/services/useCreate";
-import useUpload from "@/services/useUpload";
+import postMethod from "@/utils/postMethod";
+import uploadMethod from "@/utils/uploadMethod";
 
 export default function CreateCategory() {
   const { GET } = getMethod();
-  const { create } = useCreate();
-  const { upload } = useUpload();
+  const { POST} = postMethod();
+  const { UPLOAD} = uploadMethod();
   const [url, setUrl] = useState("");
   const [tempImage, setTempImage] = useState(
     "https://travel-journal-api-bootcamp.do.dibimbing.id/images/1714091131455-default-image.jpg"
@@ -24,7 +24,7 @@ export default function CreateCategory() {
     formData.append("image", file);
 
     try {
-      const res = await upload("upload-image", formData);
+      const res = await UPLOAD("upload-image", formData);
       setMessage(null);
       setUrl(res.data.url);
       setIsLoading(false);
@@ -52,7 +52,7 @@ export default function CreateCategory() {
     };
     console.log("submit: ", categoryData);
     try {
-      const res = await create(`create-category`, categoryData);
+      const res = await POST(`create-category`, categoryData);
       if (res.status === 200) {
         setTimeout(() => {
           setIsLoading(false);
@@ -73,7 +73,7 @@ export default function CreateCategory() {
       <div className="main-content">
         <section className="section">
           <div className="section-header">
-            <h1>Tambah Category</h1>
+            <h1>Tambah Kategori</h1>
           </div>
         </section>
         <form

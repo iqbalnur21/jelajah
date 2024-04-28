@@ -3,22 +3,22 @@ import { useEffect, useState } from "react";
 import getMethod from "@/utils/getMethod";
 import Link from "next/link";
 import { formatDate } from "@/utils";
-import useDelete from "@/services/useDelete";
+import deleteMethod from "@/utils/deleteMethod";
 
 export default function DataCategory() {
   const [categorys, setCategorys] = useState([]);
   const { GET } = getMethod();
-  const { deleteData } = useDelete();
+  const { DELETE } = deleteMethod();
 
   useEffect(() => {
     GET("categories").then((res) => setCategorys(res.data.data));
   }, []);
 
   const handleDelete = (id) => {
-    const confirmed = confirm("Yakin Ingin Hapus Category Ini ?");
+    const confirmed = confirm("Yakin Ingin Hapus Kategori Ini ?");
     if (confirmed) {
       try {
-        deleteData(`delete-category/${id}`).then((res) => {
+        DELETE(`delete-category/${id}`).then((res) => {
           if (res.status === 200) {
             window.location.reload();
           }
@@ -34,7 +34,7 @@ export default function DataCategory() {
       <div className="main-content">
         <section className="section">
           <div className="section-header">
-            <h1>Data Category</h1>
+            <h1>Data Kategori</h1>
           </div>
         </section>
         <div className="card card-body">
