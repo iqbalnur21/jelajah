@@ -3,7 +3,7 @@ const path = require('path');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config) => {
-    config.resolve.alias['@'] = path.join(__dirname, 'src'); // Adjust the path as needed
+    config.resolve.alias['@'] = path.join(__dirname, 'src');
     return config;
   }
 };
