@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import "../../../assets/admin/node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "../../../assets/admin/node_modules/@fortawesome/fontawesome-free/css/all.min.css";
-import "../../../assets/admin/node_modules/datatables/media/css/jquery.dataTables.min.css";
+import "@/assets/admin/node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "@/assets/admin/node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+import "@/assets/admin/node_modules/datatables/media/css/jquery.dataTables.min.css";
 // import "@/assets/admin/node_modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css";
 // import "@/assets/admin/node_modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css";
-import "../../../assets/admin/assets/css/style.css";
-import "../../../assets/admin/assets/css/components.css";
+import "@/assets/admin/assets/css/style.css";
+import "@/assets/admin/assets/css/components.css";
 import authMethod from "@/utils/authMethod";
 import { useRouter } from "next/navigation";
 
