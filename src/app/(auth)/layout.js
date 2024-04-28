@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 export default function AuthLAyout({ children }) {
   const router = useRouter();
 
-  if(localStorage.getItem("token")) {
-    router.push("/dashboard");
-  }
+  // if(localStorage.getItem("token")) {
+  //   router.push("/dashboard");
+  // }
 
   return (
     <>

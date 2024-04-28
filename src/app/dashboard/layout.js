@@ -13,9 +13,14 @@ import { useRouter } from "next/navigation";
 export default function DashboardLayout({ children }) {
   const router = useRouter();
 
-  if (!localStorage.getItem("token")) {
-    router.push("/login");
-  }
+  // if (typeof localStorage !== "undefined") {
+  //   localStorage.setItem("key", "value");
+  // } else {
+  //   if (!localStorage.getItem("token")) {
+  //     router.push("/login");
+  //   }
+  //   console.error("localStorage is not available in this environment");
+  // }
 
   const { userLoginStatus } = authMethod();
   const [user, setUser] = useState({});
