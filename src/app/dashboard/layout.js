@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import "@/assets/admin/modules/bootstrap/dist/css/bootstrap.min.css";
-import "@/assets/admin/modules/@fortawesome/fontawesome-free/css/all.min.css";
-import "@/assets/admin/modules/datatables/media/css/jquery.dataTables.min.css";
-// import "@/assets/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css";
-// import "@/assets/admin/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css";
+import "@/assets/admin/node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "@/assets/admin/node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+import "@/assets/admin/node_modules/datatables/media/css/jquery.dataTables.min.css";
+// import "@/assets/admin/node_modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css";
+// import "@/assets/admin/node_modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css";
 import "@/assets/admin/assets/css/style.css";
 import "@/assets/admin/assets/css/components.css";
 import authMethod from "@/utils/authMethod";
@@ -28,23 +28,23 @@ export default function DashboardLayout({ children }) {
     userLoginStatus("user", (res) => {
       setUser(res);
     });
-    import("@/assets/admin/modules/jquery/dist/jquery.min.js");
-    import("@/assets/admin/modules/popper.js/dist/popper.js");
-    import("@/assets/admin/modules/tooltip.js/dist/tooltip.js");
-    import("@/assets/admin/modules/bootstrap/dist/js/bootstrap.min.js");
+    import("@/assets/admin/node_modules/jquery/dist/jquery.min.js");
+    import("@/assets/admin/node_modules/popper.js/dist/popper.js");
+    import("@/assets/admin/node_modules/tooltip.js/dist/tooltip.js");
+    import("@/assets/admin/node_modules/bootstrap/dist/js/bootstrap.min.js");
     import(
-      "@/assets/admin/modules/nicescroll/dist/jquery.nicescroll.min.js"
+      "@/assets/admin/node_modules/nicescroll/dist/jquery.nicescroll.min.js"
     );
-    // import("@/assets/admin/modules/moment/min/moment.min.js");
+    // import("@/assets/admin/node_modules/moment/min/moment.min.js");
     import("@/assets/admin/assets/js/stisla.js");
-    import("@/assets/admin/modules/sweetalert/dist/sweetalert.min.js");
+    import("@/assets/admin/node_modules/sweetalert/dist/sweetalert.min.js");
     import("@/assets/admin/assets/js/page/modules-sweetalert.js");
     import("@/assets/admin/assets/js/scripts.js");
     import("@/assets/admin/assets/js/custom.js");
     import(
-      "@/assets/admin/modules/datatables/media/js/jquery.dataTables.min.js"
+      "@/assets/admin/node_modules/datatables/media/js/jquery.dataTables.min.js"
     );
-    // import("@/assets/admin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js");
+    // import("@/assets/admin/node_modules/datatables/Select-1.2.4/js/dataTables.select.min.js");
   }, []);
   const handleLogout = async () => {
     const confirmed = confirm("Yakin Ingin Keluar ?");
@@ -108,40 +108,40 @@ export default function DashboardLayout({ children }) {
           <ul className="sidebar-menu">
             <li className="menu-header">Dashboard</li>
             <li>
-              <a className="nav-link" href="/dashboard">
+              <a className={"nav-link"+ router.pathname === '/dashboard' ? " active" : null} href="/dashboard">
                 <i className="fas fa-tachometer-alt"></i> <span>Dashboard</span>
               </a>
             </li>
 
             <li className="menu-header">Menu</li>
             <li>
-              <a className="nav-link" href={`/dashboard/banner`}>
+              <a className={"nav-link"+ router.pathname === '/dashboard/banner' ? " active" : null} href={`/dashboard/banner`}>
                 <i className="fas fa-window-restore"></i>{" "}
                 <span>Data Banner</span>
               </a>
             </li>
             <li>
-              <a className="nav-link" href={`/dashboard/user`}>
+              <a className={"nav-link"+ router.pathname === '/dashboard/user' ? " active" : null} href={`/dashboard/user`}>
                 <i className="fas fa-users"></i> <span>Data User</span>
               </a>
             </li>
             <li>
-              <a className="nav-link" href={`/dashboard/promo`}>
+              <a className={"nav-link"+ router.pathname === '/dashboard/promo' ? " active" : null} href={`/dashboard/promo`}>
                 <i className="fas fa-tag"></i> <span>Data Promo</span>
               </a>
             </li>
             <li>
-              <a className="nav-link" href={`/dashboard/category`}>
+              <a className={"nav-link"+ router.pathname === '/dashboard/category' ? " active" : null} href={`/dashboard/category`}>
                 <i className="fas fa-list"></i> <span>Data Kategori</span>
               </a>
             </li>
             <li>
-              <a className="nav-link" href={`/dashboard/activity`}>
+              <a className={"nav-link"+ router.pathname === '/dashboard/activity' ? " active" : null} href={`/dashboard/activity`}>
                 <i className="fas fa-hiking"></i> <span>Data Aktivitas</span>
               </a>
             </li>
             <li>
-              <a className="nav-link" href={`/dashboard/profile`}>
+              <a className={"nav-link"+ router.pathname === '/dashboard/profile' ? " active" : null} href={`/dashboard/profile`}>
                 <i className="fas fa-user"></i> <span>Profile</span>
               </a>
             </li>
