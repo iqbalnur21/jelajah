@@ -114,7 +114,6 @@ export function sanitizeHtml(unsafeHtml, whiteList, sanitizeFn) {
     }
 
     const attributeList = [].slice.call(el.attributes)
-    // eslint-disable-next-line unicorn/prefer-spread
     const whitelistedAttributes = [].concat(whiteList['*'] || [], whiteList[elName] || [])
 
     attributeList.forEach(attr => {
