@@ -39,6 +39,7 @@ function ListPromo() {
                       adjustedKey % 3 === 0 ||
                       adjustedKey === promos.length
                     ) {
+                      console.log(promos.length);
                       const renderedPromos = myArr.map((arrDetail, keyIn) => (
                         <CardPromo promo={arrDetail} key={arrDetail.id} />
                       ));
@@ -48,7 +49,13 @@ function ListPromo() {
                           key={adjustedKey}
                           className={
                             "carousel-item" +
-                            (adjustedKey === 3 ? " active" : "")
+                            ((
+                              promos.length <= 3
+                                ? adjustedKey === promos.length
+                                : adjustedKey === 3
+                            )
+                              ? " active"
+                              : "")
                           }
                           data-bs-interval="3000"
                         >

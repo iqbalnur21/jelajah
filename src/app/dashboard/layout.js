@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import "@/assets/admin/node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "@/assets/admin/node_modules/@fortawesome/fontawesome-free/css/all.min.css";
-import "@/assets/admin/node_modules/datatables/media/css/jquery.dataTables.min.css";
-// import "@/assets/admin/node_modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css";
-// import "@/assets/admin/node_modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css";
+import "@/assets/admin/modules/bootstrap/dist/css/bootstrap.min.css";
+import "@/assets/admin/modules/@fortawesome/fontawesome-free/css/all.min.css";
+import "@/assets/admin/modules/datatables/media/css/jquery.dataTables.min.css";
+// import "@/assets/admin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css";
+// import "@/assets/admin/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css";
 import "@/assets/admin/assets/css/style.css";
 import "@/assets/admin/assets/css/components.css";
 import authMethod from "@/utils/authMethod";
@@ -28,23 +28,23 @@ export default function DashboardLayout({ children }) {
     userLoginStatus("user", (res) => {
       setUser(res);
     });
-    import("@/assets/admin/node_modules/jquery/dist/jquery.min.js");
-    import("@/assets/admin/node_modules/popper.js/dist/popper.js");
-    import("@/assets/admin/node_modules/tooltip.js/dist/tooltip.js");
-    import("@/assets/admin/node_modules/bootstrap/dist/js/bootstrap.min.js");
+    import("@/assets/admin/modules/jquery/dist/jquery.min.js");
+    import("@/assets/admin/modules/popper.js/dist/popper.js");
+    import("@/assets/admin/modules/tooltip.js/dist/tooltip.js");
+    import("@/assets/admin/modules/bootstrap/dist/js/bootstrap.min.js");
     import(
-      "@/assets/admin/node_modules/nicescroll/dist/jquery.nicescroll.min.js"
+      "@/assets/admin/modules/nicescroll/dist/jquery.nicescroll.min.js"
     );
-    // import("@/assets/admin/node_modules/moment/min/moment.min.js");
+    // import("@/assets/admin/modules/moment/min/moment.min.js");
     import("@/assets/admin/assets/js/stisla.js");
-    import("@/assets/admin/node_modules/sweetalert/dist/sweetalert.min.js");
+    import("@/assets/admin/modules/sweetalert/dist/sweetalert.min.js");
     import("@/assets/admin/assets/js/page/modules-sweetalert.js");
     import("@/assets/admin/assets/js/scripts.js");
     import("@/assets/admin/assets/js/custom.js");
     import(
-      "@/assets/admin/node_modules/datatables/media/js/jquery.dataTables.min.js"
+      "@/assets/admin/modules/datatables/media/js/jquery.dataTables.min.js"
     );
-    // import("@/assets/admin/node_modules/datatables/Select-1.2.4/js/dataTables.select.min.js");
+    // import("@/assets/admin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js");
   }, []);
   const handleLogout = async () => {
     const confirmed = confirm("Yakin Ingin Keluar ?");

@@ -13,9 +13,9 @@ function ListActivities() {
   const numSlides = Math.ceil(activities.length / 3);
   const slideNumbers = Array.from({ length: numSlides }, (_, index) => index);
   let myArr = [];
-  
-  if(activities.length === 0){
-    return null
+
+  if (activities.length === 0) {
+    return null;
   }
   return (
     <>
@@ -47,11 +47,16 @@ function ListActivities() {
                       myArr = [];
                       return (
                         <div
-                        key={adjustedKey}
+                          key={adjustedKey}
                           className={
                             "carousel-item" +
-                            (adjustedKey === 3 ||
-                              adjustedKey === activities.length ? " active" : "")
+                            ((
+                              activities.length <= 3
+                                ? adjustedKey === activities.length
+                                : adjustedKey === 3
+                            )
+                              ? " active"
+                              : "")
                           }
                           data-bs-interval="3000"
                         >

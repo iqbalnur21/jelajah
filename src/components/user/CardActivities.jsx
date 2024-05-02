@@ -18,22 +18,31 @@ function CardActivities({ activity }) {
         .then((response) => {
           if (
             response.status === 200 &&
+            response.statusText === "OK" &&
             response.headers["content-type"].startsWith("image")
           ) {
             setUrl(urlDetail);
+          }else{
+            setUrl(
+              "https://travel-journal-api-bootcamp.do.dibimbing.id/images/1714091131455-default-image.jpg"
+            );
           }
         })
         .catch((error) => {
-          // console.error("Error occurred while checking image URL:", error);
+          console.error("Error occurred while checking image URL:", error);
+          setUrl(
+            "https://travel-journal-api-bootcamp.do.dibimbing.id/images/1714091131455-default-image.jpg"
+          );
         });
     });
   }, [activity.imageUrls]);
 
-  if (!url) {
-    setUrl(
-      "https://travel-journal-api-bootcamp.do.dibimbing.id/images/1714091131455-default-image.jpg"
-    );
-  }
+  // if (!url) {
+  //   setUrl(
+  //     "https://travel-journal-api-bootcamp.do.dibimbing.id/images/1714091131455-default-image.jpg"
+  //   );
+  // }
+  console.log(url);
   return (
     <Link
       href={`/activity/${activity.id}`}

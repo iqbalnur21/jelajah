@@ -30,7 +30,9 @@ export default function Dashboard() {
                 <div className="card-wrap">
                   <div className="card-header"></div>
                   <h6>Total User</h6>
-                  <div className="card-body">{usersLength} User</div>
+                  <div className="card-body">
+                    {usersLength ? usersLength + " User" : "Loading..."}
+                  </div>
                 </div>
               </div>
             </div>
@@ -42,7 +44,9 @@ export default function Dashboard() {
                 <div className="card-wrap">
                   <div className="card-header"></div>
                   <h6>Total Banner</h6>
-                  <div className="card-body">{bannersLength} Banner</div>
+                  <div className="card-body">
+                    {bannersLength ? bannersLength + " Banner" : "Loading..."}
+                  </div>
                 </div>
               </div>
             </div>
@@ -56,7 +60,9 @@ export default function Dashboard() {
                 <div className="card-wrap">
                   <div className="card-header"></div>
                   <h6>Total Promo</h6>
-                  <div className="card-body">{promosLength} Promo</div>
+                  <div className="card-body">
+                    {promosLength ? promosLength + " Promo" : "Loading..."}
+                  </div>
                 </div>
               </div>
             </div>
@@ -68,7 +74,11 @@ export default function Dashboard() {
                 <div className="card-wrap">
                   <div className="card-header"></div>
                   <h6>Total Aktivitas</h6>
-                  <div className="card-body">{activitiesLength} Aktivitas</div>
+                  <div className="card-body">
+                    {activitiesLength
+                      ? activitiesLength + " Aktivitas"
+                       : "Loading..."}
+                  </div>
                 </div>
               </div>
             </div>
